@@ -94,10 +94,6 @@ function(find_python preferred_version min_version library_env include_dir_env
         if(WIN32 AND NOT EXISTS ${PYTHON_DEBUG_LIBRARY})
           # replace python??_d.lib to python??.lib when not exist python??_d.lib for Windows
           function(get_library_path LIBRARIES LIBRARIE_type LIBRARIE_path)
-            if(NOT LIBRARIES)
-              return()
-            endif()
-      
             set(${LIBRARIE_path} "" PARENT_SCOPE)
       
             list(LENGTH LIBRARIES _LIBRARIES_len)
@@ -122,10 +118,6 @@ function(find_python preferred_version min_version library_env include_dir_env
           endfunction()
       
           function(set_library_path LIBRARIES Target_LIBRARIE_type Target_LIBRARIE_path DST_NEW_LIBRARIES)
-            if(NOT LIBRARIES)
-              return()
-            endif()
-      
             set(NEW_LIBRARIES)
       
             list(LENGTH LIBRARIES _LIBRARIES_len)
@@ -155,7 +147,7 @@ function(find_python preferred_version min_version library_env include_dir_env
       
           get_library_path("${PYTHON_LIBRARIES}" "optimized" _optimized_PYTHON_LIBRARIE)
       
-          if(NOT "${PYTHON_DEBUG_LIBRARY}" STREQUAL "${_optimized_PYTHON_LIBRARIE}")
+          if(_optimized_PYTHON_LIBRARIE AND NOT "${PYTHON_DEBUG_LIBRARY}" STREQUAL "${_optimized_PYTHON_LIBRARIE}")
             set_library_path("${PYTHON_LIBRARIES}" "debug" ${_optimized_PYTHON_LIBRARIE} PYTHON_LIBRARIES)
           endif()
         endif()
