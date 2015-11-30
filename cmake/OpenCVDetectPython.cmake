@@ -90,6 +90,11 @@ if(PYTHON_EXECUTABLE)
           set(${LIBRARIE_path} "" PARENT_SCOPE)
       
           list(LENGTH LIBRARIES _LIBRARIES_len)
+
+          if(_LIBRARIES_len LESS 2)
+            return()
+          endif()
+
           math(EXPR _LIBRARIES_elm_num "${_LIBRARIES_len} / 2 - 1")
         
           foreach(val RANGE ${_LIBRARIES_elm_num})
@@ -113,6 +118,11 @@ if(PYTHON_EXECUTABLE)
           set(NEW_LIBRARIES)
       
           list(LENGTH LIBRARIES _LIBRARIES_len)
+          
+          if(_LIBRARIES_len LESS 2)
+            return()
+          endif()
+
           math(EXPR _LIBRARIES_elm_num "${_LIBRARIES_len} / 2 - 1")
       
           foreach(val RANGE ${_LIBRARIES_elm_num})
